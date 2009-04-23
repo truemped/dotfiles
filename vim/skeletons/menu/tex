@@ -1,0 +1,44 @@
+
+
+menu 90.20 TSke&l.\\footnote :call TSkeletonExpandBitUnderCursor("n", "%5Cfootnote")<cr>
+menu 90.20 TSke&l.\\item :call TSkeletonExpandBitUnderCursor("n", "%5Citem")<cr>
+menu 90.20 TSke&l.\\item[] :call TSkeletonExpandBitUnderCursor("n", "%5Citem[]")<cr>
+menu 90.20 TSke&l.\\multicolumn :call TSkeletonExpandBitUnderCursor("n", "%5Cmulticolumn")<cr>
+menu 90.20 TSke&l.\\paragraph :call TSkeletonExpandBitUnderCursor("n", "%5Cparagraph")<cr>
+menu 90.20 TSke&l.\\section :call TSkeletonExpandBitUnderCursor("n", "%5Csection")<cr>
+menu 90.20 TSke&l.\\sub&paragraph :call TSkeletonExpandBitUnderCursor("n", "%5Csub&paragraph")<cr>
+menu 90.20 TSke&l.\\subsection :call TSkeletonExpandBitUnderCursor("n", "%5Csubsection")<cr>
+menu 90.20 TSke&l.\\subsubsection :call TSkeletonExpandBitUnderCursor("n", "%5Csubsubsection")<cr>
+menu 90.20 TSke&l.\\usepackage :call TSkeletonExpandBitUnderCursor("n", "%5Cusepackage")<cr>
+menu 90.19 TSke&l.&begin.\\&begin :call TSkeletonExpandBitUnderCursor("n", "%5C&begin")<cr>
+menu 90.19 TSke&l.&begin.&description :call TSkeletonExpandBitUnderCursor("n", "&description")<cr>
+menu 90.19 TSke&l.&begin.&enumerate :call TSkeletonExpandBitUnderCursor("n", "&enumerate")<cr>
+menu 90.19 TSke&l.&begin.&figure :call TSkeletonExpandBitUnderCursor("n", "&figure")<cr>
+menu 90.19 TSke&l.&begin.&itemize :call TSkeletonExpandBitUnderCursor("n", "&itemize")<cr>
+menu 90.19 TSke&l.&begin.&quotation :call TSkeletonExpandBitUnderCursor("n", "&quotation")<cr>
+menu 90.19 TSke&l.&begin.&quote :call TSkeletonExpandBitUnderCursor("n", "&quote")<cr>
+menu 90.19 TSke&l.&begin.&table :call TSkeletonExpandBitUnderCursor("n", "&table")<cr>
+menu 90.19 TSke&l.&begin.&verbatim :call TSkeletonExpandBitUnderCursor("n", "&verbatim")<cr>
+menu 90.19 TSke&l.&begin.tabu&lar :call TSkeletonExpandBitUnderCursor("n", "tabu&lar")<cr>
+
+
+imenu90.20 TSke&l.\\footnote <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Cfootnote")<cr>
+imenu90.20 TSke&l.\\item <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Citem")<cr>
+imenu90.20 TSke&l.\\item[] <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Citem[]")<cr>
+imenu90.20 TSke&l.\\multicolumn <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Cmulticolumn")<cr>
+imenu90.20 TSke&l.\\paragraph <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Cparagraph")<cr>
+imenu90.20 TSke&l.\\section <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Csection")<cr>
+imenu90.20 TSke&l.\\sub&paragraph <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Csub&paragraph")<cr>
+imenu90.20 TSke&l.\\subsection <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Csubsection")<cr>
+imenu90.20 TSke&l.\\subsubsection <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Csubsubsection")<cr>
+imenu90.20 TSke&l.\\usepackage <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5Cusepackage")<cr>
+imenu90.19 TSke&l.&begin.\\&begin <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "%5C&begin")<cr>
+imenu90.19 TSke&l.&begin.&description <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&description")<cr>
+imenu90.19 TSke&l.&begin.&enumerate <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&enumerate")<cr>
+imenu90.19 TSke&l.&begin.&figure <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&figure")<cr>
+imenu90.19 TSke&l.&begin.&itemize <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&itemize")<cr>
+imenu90.19 TSke&l.&begin.&quotation <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&quotation")<cr>
+imenu90.19 TSke&l.&begin.&quote <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&quote")<cr>
+imenu90.19 TSke&l.&begin.&table <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&table")<cr>
+imenu90.19 TSke&l.&begin.&verbatim <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "&verbatim")<cr>
+imenu90.19 TSke&l.&begin.tabu&lar <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "tabu&lar")<cr>

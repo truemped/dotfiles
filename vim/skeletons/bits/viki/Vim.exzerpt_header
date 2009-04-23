@@ -1,0 +1,9 @@
+#AU: <+TEXT AUTHOR+>
+#TI: <+TEXT TITLE+>
+#DATE: <+YEAR+>
+% #VAR: keywords=
+<+bit:bibref+>
+
+#s<+PAGE+>
+<+CURSOR+>
+

@@ -1,0 +1,10 @@
+<tskel:here_after>
+if exists("*TComment")|call TCommentAs(1, line("$"), "!", b:tskelFiletype)|endif
+</tskel:here_after>
+<+FILE NAME+><+NOTE+>
+@Author:      <+AUTHOR+> (<+EMAIL+>)
+@Website:     <+WEBSITE+>
+@License:     <+LICENSE+>
+@Created:     <+DATE+>.
+@Last Change: 07-Mär-2005.
+@Revision:    0.0

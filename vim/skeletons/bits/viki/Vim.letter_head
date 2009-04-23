@@ -1,0 +1,8 @@
+#VAR: template=brief-privat.tex
+#AU: <+AUTHOR+>
+#DATE: today
+#SET id=addresseeAddress: <+ADDRESSEE ADDRESS+>
+#SET id=addresseeName: <+ADDRESSEE NAME+>
+% #SET id=anrede: <+ANREDE+>
+% #VAR: enclosure=
+

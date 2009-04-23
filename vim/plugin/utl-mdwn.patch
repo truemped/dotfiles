@@ -1,0 +1,89 @@
+diff -r fc99d4d53abf utl.vim
+--- a/utl.vim	Mon Aug 25 13:29:18 2008 +0200
++++ b/utl.vim	Mon Aug 25 13:30:08 2008 +0200
+@@ -374,6 +374,22 @@
+ 
+     if url=='<undef>'
+ 	call Utl_trace("- ...no", 1, -1)
++	call Utl_trace("- retry: checking if [[ ]] style reference...", 1, 1) 
++	if stridx(line, '[[') != -1
++	    let isfname_save = &isfname | let &isfname = s:isuriref " ([)
++	    let pat = '\(\(\[\[[A-Z0-9_]\{-}\]\]\)\(#\f*\)*\)'	    " &isfname here in \f
++	    let url = s:Utl_extractUrlByPattern(line, icurs, pat)
++	    let &isfname = isfname_save				    " (]) 
++	    " remove trailing punctuation characters if any
++	    if url!='<undef>'
++		call Utl_trace("- removing trailing punctuation chars from URL if any")
++		let url = substitute(url, '[.,:;!?]$', '', '')
++	    endif
++	endif
++    endif
++
++    if url=='<undef>'
++	call Utl_trace("- ...no", 1, -1)
+ 	call Utl_trace("- retry: checking if [ ] style reference...", 1, 1) 
+ 	if stridx(line, '[') != -1
+ 	    let isfname_save = &isfname | let &isfname = s:isuriref " ([)
+@@ -873,8 +889,11 @@
+ "
+ fu! s:Utl_checkHeuristicAbsUrl(uri)
+ 
++	if match(a:uri, '^\[\[.\{-}\]\]') != -1
++	return substitute(a:uri, '^\[\[\(.\{-}\)\]\]', 'mdwn:\1', '')
++
+     "--- [1] -> foot:1
+-    if match(a:uri, '^\[.\{-}\]') != -1
++    elseif match(a:uri, '^\[.\{-}\]') != -1
+ 	return substitute(a:uri, '^\[\(.\{-}\)\]', 'foot:\1', '')
+ 
+     "--- www.host.domain -> http://www.host.domain
+diff -r fc99d4d53abf utl_scm.vim
+--- a/utl_scm.vim	Mon Aug 25 13:29:18 2008 +0200
++++ b/utl_scm.vim	Mon Aug 25 13:30:08 2008 +0200
+@@ -236,6 +236,46 @@
+ 
+     call Utl_trace("- end execution of Utl_AddressScheme_file",1,-1) 
+     return [path]
++endfu
++
++
++"-------------------------------------------------------------------------------
++"
++fu! Utl_AddressScheme_mdwn(auri, fragment, dispMode)
++    call Utl_trace("- start execution of Utl_AddressScheme_mdwn",1,1) 
++	call Utl_trace("- constructing the filename",1,1)
++
++	let curPath = Utl_utilBack2FwdSlashes( expand("%:p") )
++	if stridx(curPath, '://') != -1	    " id=url_buffer (e.g. by netrw)
++	    call Utl_trace("- buffer's name looks like an absolute URL (has substring ://)")
++	    call Utl_trace("  so take it as base URL.") 
++	    let base = curPath
++	else
++	    call Utl_trace("- try to construct a `file://' base URL from current buffer... ",0) 
++	    " No corresponding resource to curPath known.   (id=nobase)
++	    " i.e. curPath was not retrieved through Utl.
++	    " Now just make the usual heuristic of `file://localhost/'-Url;
++	    " assume, that the curPath is the resource itsself. If then the 
++	    " retrieve with the so generated Url is not possible, nothing
++	    " severe happens.
++	    if curPath == ''
++		call Utl_trace("not possible, give up")
++		let v:errmsg = "Cannot make a base URL from unnamed buffer. Edit a file and try again"
++		echohl ErrorMsg | echo v:errmsg | echohl None
++		call Utl_trace("- end normalize URL to an absolute URL",1,-1)
++		call Utl_trace("- end processing URL",1,-1)
++		return
++	    endif
++	    let base = 'file://' . curPath
++	    call Utl_trace("done,")
++	endif
++
++	let anotheruri = UtlUri_abs(substitute(a:auri, 'mdwn:\(.\+\)', '\1.mdwn', '' ), base )
++
++    call Utl_trace("- delegating to file scheme handler")
++    let ret = Utl_AddressScheme_file(anotheruri, a:fragment, a:dispMode)
++    call Utl_trace("- end execution of Utl_AddressScheme_mdwn",1,-1) 
++    return ret
+ endfu
+ 
+ 

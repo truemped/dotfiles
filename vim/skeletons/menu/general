@@ -1,0 +1,18 @@
+
+
+menu 90.10 TSke&l.General.authorversion :call TSkeletonExpandBitUnderCursor("n", "authorversion")<cr>
+menu 90.10 TSke&l.General.date :call TSkeletonExpandBitUnderCursor("n", "date")<cr>
+menu 90.10 TSke&l.General.gpl :call TSkeletonExpandBitUnderCursor("n", "gpl")<cr>
+menu 90.10 TSke&l.General.header :call TSkeletonExpandBitUnderCursor("n", "header")<cr>
+menu 90.10 TSke&l.General.localvariables :call TSkeletonExpandBitUnderCursor("n", "localvariables")<cr>
+menu 90.10 TSke&l.General.test_tSkeleton :call TSkeletonExpandBitUnderCursor("n", "test_tSkeleton")<cr>
+menu 90.10 TSke&l.General.time :call TSkeletonExpandBitUnderCursor("n", "time")<cr>
+
+
+imenu90.10 TSke&l.General.authorversion <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "authorversion")<cr>
+imenu90.10 TSke&l.General.date <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "date")<cr>
+imenu90.10 TSke&l.General.gpl <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "gpl")<cr>
+imenu90.10 TSke&l.General.header <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "header")<cr>
+imenu90.10 TSke&l.General.localvariables <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "localvariables")<cr>
+imenu90.10 TSke&l.General.test_tSkeleton <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "test_tSkeleton")<cr>
+imenu90.10 TSke&l.General.time <c-r>=TSkeletonSetCursorPosition()<cr><c-o>:call TSkeletonExpandBitUnderCursor("i", "time")<cr>
