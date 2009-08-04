@@ -1,0 +1,11 @@
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+[color]
+    status = auto
+    branch = auto
+    diff = auto
