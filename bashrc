@@ -92,23 +92,17 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-######
-#
-# Daniel
-#
-######
-export EDITOR=/usr/bin/vim
+case `hostname` in
+saturn*)
+    echo "Saturn"
+    if [ -f ~/.bash.saturn ]; then
+        . ~/.bash.saturn
+    fi
+    ;;
+durban*)
+    if [ -f ~/.bash.durban ]; then
+        . ~/.bash.durban
+    fi
+    ;;
+esac
 
-# JAVA
-export JAVA_HOME=/usr/lib/jvm/java-6-sun/
-
-# Maven
-export MAVEN_HOME=/data/lib/apache-maven-2.0.9
-export MAVEN_OPTS=-Xmx512m
-export PATH=$PATH:$MAVEN_HOME/bin
-
-# Heretix
-export HERITRIX_HOME=/data/share/heritrix-1.14.1/
-
-# read ssh agent vars
-eval `cat ~/.ssh-agent | sed 's/^echo/#echo/g'`
