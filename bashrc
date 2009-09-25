@@ -104,5 +104,10 @@ durban*)
         . ~/.bash.durban
     fi
     ;;
+jupiter*)
+    if [ -f ~/.bash.jupiter ]; then
+       .~/.bash.durban
+    fi
+    ;;
 esac
 
