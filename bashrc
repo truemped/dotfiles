@@ -93,8 +93,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 case `hostname` in
-saturn*)
-    echo "Saturn"
+Saturn*|saturn*|vandusen*|dummy*|gast*)
     if [ -f ~/.bash.saturn ]; then
         . ~/.bash.saturn
     fi
