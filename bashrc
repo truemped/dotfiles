@@ -108,5 +108,10 @@ jupiter*)
        .~/.bash.durban
     fi
     ;;
+uranus*)
+    if [ -f ~/.bash.uranus ]; then
+       source ~/.bash.uranus
+    fi
+    ;;
 esac
 
