@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2010 <+AUTHOR+> <+EMAIL+>
+# Copyright (c) 2011 <+AUTHOR+> <+EMAIL+>
 #
 # <+FILE NAME+> <+DATE+>
 #
