@@ -1,9 +1,9 @@
 #
-# Copyright (c) 2008 <+AUTHOR+> <+EMAIL+>
+# Copyright (c) 2011 <+AUTHOR+> <+EMAIL+>
 #
 # <+FILE NAME+> <+DATE+>
 #
-<+bit:GPL+>#
+<+bit:APACHE+>#
 #
 
 <+CURSOR+>

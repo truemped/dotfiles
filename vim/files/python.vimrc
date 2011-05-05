@@ -13,10 +13,12 @@ endfunction
 set syntax=python
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set foldmethod=indent
-set textwidth=110
-set ai
+set textwidth=79
+set autoindent
 set omnifunc=pythoncomplete#Complete
+set number
 
 call GeneralKeyboardMappings()
 call PythonKeyboardMappings()
