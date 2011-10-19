@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/daniel/Source/retresco/kunden/asv/cci/asvcci/src/cci/cci/style'
+let g:netrw_dirhist_2='/Users/daniel/Source/retresco/kunden/asv/cci/asvcci/src/cci/cci'
+let g:netrw_dirhist_3='/Users/daniel/Source/retresco/kunden/asv/cci/asvcci/src/cci'
+let g:netrw_dirhist_4='/Users/daniel/Source/retresco/kunden/asv/cci/asvcci/src'
+let g:netrw_dirhist_5='/Users/daniel/Source/retresco/kunden/asv/cci/asvcci'
+let g:netrw_dirhist_6='/Users/daniel/Source/python/trombi'
+let g:netrw_dirhist_7='/Users/daniel/Source/python/trombi/test'
+let g:netrw_dirhist_8='/Users/daniel/Source/python/trombi'
+let g:netrw_dirhist_9='/Users/daniel/Source/python/trombi/trombi'
