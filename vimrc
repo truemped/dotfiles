@@ -141,8 +141,9 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup PYTHON
 	au!
-	au BufRead,BufNewFile,BufEnter *.py source ~/.vim/files/python.vimrc
 	au FileType python so ~/.vim/files/python.vimrc
+	au BufRead,BufNewFile,BufEnter *.py source ~/.vim/files/python.vimrc
+	au BufNewFile /**/retresco/**/*.py TSkeletonSetup rtrpython.py
 	au BufNewFile *.py TSkeletonSetup python.py
 augroup END
 
