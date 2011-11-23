@@ -121,9 +121,9 @@ jupiter*)
        .~/.bash.durban
     fi
     ;;
-uranus*)
-    if [ -f ~/.bash.uranus ]; then
-       source ~/.bash.uranus
+pluto|Pluto*)
+    if [ -f ~/.bash.pluto ]; then
+       source ~/.bash.pluto
     fi
     ;;
 esac
