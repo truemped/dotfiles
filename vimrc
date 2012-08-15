@@ -1,26 +1,53 @@
+" be iMproved
+set nocompatible
 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required!
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'majutsushi/tagbar'
+Bundle 'kchmck/vim-coffee-script'
+"Bundle 'ciaranm/inkpot'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kevinw/pyflakes-vim'
+Bundle 'klen/python-mode'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" vim-scripts repos
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
+"Bundle 'rails.vim'
+" non github repos
+Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
+Bundle 'https://github.com/tony-landis/snipmate.vim.git'
+Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on     " required!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " How many lines of history to remember
 set history=1000 
+" use the clipboard even in terminal
+set clipboard+=unnamed
 " enable error files and error jumping
 set cf
-
-"set clipboard+=unnamed " turns out I do like is sharing windows clipboard
 " support all three, in this order
-set ffs=mac,unix,dos
-" load filetype plugins
-filetype plugin indent on
+set ffs=unix,mac,dos
 " make sure it can save viminfo
 set viminfo+=!
 " none of these should be word dividers, so make them not be
 set isk+=_,$,@,%,#,-
 " show me colored syntax
 syntax on
-" needed for the Project plugin
-set nocompatible
-
 " show wrapped lines:
 set sbr=> 
 
@@ -32,18 +59,16 @@ set sbr=>
 set showmatch
 " how many tenths of a second to blink matching brackets for
 set mat=5
-" do not highlight searched for phrases
-set nohlsearch
+" do highlight searched for phrases
+set hlsearch
 " BUT do highlight as you type your search phrase
 set incsearch
-
-set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$ " what to show when I hit :set list
-" set lines=80 " 80 lines tall
+"
 " set columns=160 " 160 cols wide
 " Keep 5 lines (top/bottom) for scope
 set so=5
-" don't blink
-set novisualbell
+" do blink
+set visualbell
 " no noises
 set noerrorbells
 
@@ -52,12 +77,57 @@ set noerrorbells
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show the status line
 set laststatus=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+set statusline=%F%m%r%h%w\ [F=%{&ff},T=%Y]\ [ASCII=\%03.3b]\ [POS=%03l,%03v,%p%%]\ [LEN=%L]\ [%{fugitive#statusline()}]
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " color scheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-source $HOME/.vim/colors/camo.vim
+colorscheme slate
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" indent
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autoindent
+set ai
+" smartindent
+set si
+" do c-style indenting
+set cindent
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" python
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup PYTHON
+	au!
+	au BufNewFile /**/retresco/**/*.py 0r ~/.vim/skeleton/rtrpython.py|norm G
+	au BufNewFile /**/*.py 0r ~/.vim/skeleton/python.py|norm G
+	au FileType python set syntax=python
+	au FileType python set textwidth=79
+	au FileType python set omnifunc=pythoncomplete#Complete
+	au FileType python set number
+
+	if v:version >= 703
+		au FileType python set colorcolumn=80
+	endif
+augroup END
+
+" python-mode stuff
+let g:pymode_lint_write = 0
+
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#CompleteCpp
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tabstops
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set softtabstop=4
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Folding
@@ -72,85 +142,15 @@ set foldlevel=2
 " don't open folds when you undo stuff
 set foldopen-=undo
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tabstops
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set softtabstop=4
-set tabstop=4
-set shiftwidth=4
-set expandtab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" indent
+" keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" autoindent
-set ai
-" smartindent
-set si
-" do c-style indenting
-set cindent
+
+map tr :tabprevious<CR>
+map ty :tabnext<CR>
+nnoremap <C-L> :nohl<CR><C-L>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Options for Vim 7.0
+" minibuf explorer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let loaded_matchparen = 1
-" turn spelling on by default
-"set spell
-" change to german
-set spelllang=de_20
-"
-set spellfile=~/.vim/de.add
-" they were using white on white
-" highlight PmenuSel ctermfg=black ctermbg=lightgray
-" limit it to just the top 10 items
-set sps=best,5
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TSkeleton 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWritePre * call TSkeletonIncreaseRevisionNumber()
-let g:tskelUserName = 'Daniel Truemper'
-let g:tskelUserEmail = 'truemped@googlemail.com'
-let g:tskelUserWWW = ''
-let g:tskelLicense = ''
- 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tlist extensions:
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:tlist_tex_settings='latex;s:section;c:chapter;l:label;r:ref'
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown files
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup mkd
-	au!
-	au BufRead,BufNewFile,BufEnter *.mdwn so ~/.vim/files/markdown.vimrc
-	au BufRead,BufNewFile,BufEnter *.mkd so ~/.vim/files/markdown.vimrc
-	au BufRead,BufNewFile,BufEnter /Users/danieltruemper/Documents/Wiki/* so ~/.vim/files/markdown.vimrc
-augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" latex
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup tex
-	au!
-	au BufRead,BufNewFile,BufEnter *.tex so ~/.vim/files/latex.vimrc
-augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" python
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup PYTHON
-	au!
-	au FileType python so ~/.vim/files/python.vimrc
-	au BufRead,BufNewFile,BufEnter *.py source ~/.vim/files/python.vimrc
-	au BufNewFile /**/retresco/**/*.py TSkeletonSetup rtrpython.py
-	au BufNewFile *.py TSkeletonSetup python.py
-augroup END
-
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#CompleteCpp
