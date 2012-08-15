@@ -75,7 +75,7 @@ msgwait 1
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
 
-shell /bin/bash
+shell /bin/zsh
 
 setenv LC_CTYPE en_US.UTF-8
 defutf8 on
@@ -83,4 +83,4 @@ defutf8 on
 termcapinfo xterm-color kD=\E[3~
 
 # default screens
-screen -t bash 0 bash
+screen -t zsh 0 zsh
