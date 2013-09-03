@@ -26,8 +26,11 @@ Bundle 'klen/python-mode'
 "Bundle 'rails.vim'
 " non github repos
 Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
-Bundle 'https://github.com/tony-landis/snipmate.vim.git'
-Bundle 'git://git.wincent.com/command-t.git'
+" Bundle 'https://github.com/tony-landis/snipmate.vim.git'
+" Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'https://github.com/kien/ctrlp.vim.git'
+Bundle 'https://github.com/scrooloose/nerdtree.git'
+Bundle 'https://github.com/mattn/zencoding-vim/'
 " ...
 
 filetype plugin indent on     " required!
@@ -97,29 +100,57 @@ set cindent
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup PYTHON
-	au!
-	au BufNewFile /**/retresco/**/*.py 0r ~/.vim/skeleton/rtrpython.py|norm G
-	au BufNewFile /**/*.py 0r ~/.vim/skeleton/python.py|norm G
-	au FileType python set syntax=python
-	au FileType python set textwidth=79
-	au FileType python set omnifunc=pythoncomplete#Complete
-	au FileType python set number
+augroup python
+    au!
+    au BufNewFile /**/retresco/**/*.py 0r ~/.vim/skeleton/rtrpython.py|norm G
+    au BufNewFile /**/*.py 0r ~/.vim/skeleton/python.py|norm G
+    au FileType python set syntax=python
+    au FileType python set textwidth=79
+    au FileType python set omnifunc=pythoncomplete#Complete
+    au FileType python set number
+    au FileType python nnoremap <buffer> <localleader>c I#<esc>
 
-	if v:version >= 703
-		au FileType python set colorcolumn=80
-	endif
+    if v:version >= 703
+        au FileType python set colorcolumn=80
+    endif
 augroup END
 
-" python-mode stuff
-let g:pymode_lint_write = 0
+augroup python-mode
+    " python-mode stuff
+    let g:pymode_lint_write = 0
+    " Load show documentation plugin
+    let g:pymode_doc = 1
+    " Key for show python documentation
+    let g:pymode_doc_key = 'K'
+    " Switch pylint, pyflakes, pep8, mccabe code-checkers
+    " Can have multiply values "pep8,pyflakes,mcccabe"
+    let g:pymode_lint_checker = "pylint,pyflakes"
+    " ,pep8,mccabe"
+augroup END
 
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#CompleteCpp
+augroup html
+    au!
+    au FileType HTML set textwidth=0
+    au FileType HTML set number
+    au FileType HTML set colorcolumn=0
+augroup END
+
+augroup htmldjango
+    au!
+    au FileType HTMLDJANGO set textwidth=0
+    au FileType HTMLDJANGO set number
+    au FileType HTMLDJANGO set colorcolumn=0
+augroup END
+
+augroup otherfiletypes
+    au!
+    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c set omnifunc=ccomplete#CompleteCpp
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tabstops
@@ -142,15 +173,28 @@ set foldlevel=2
 " don't open folds when you undo stuff
 set foldopen-=undo
 
+" vim filetype settings {{{
+augroup filetype_vim
+    au!
+    au FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keybindings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-map tr :tabprevious<CR>
-map ty :tabnext<CR>
+nnoremap tr :tabprevious<CR>
+nnoremap ty :tabnext<CR>
 nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <leader>pd aimport pdb; pdb.set_trace()<esc>
+nnoremap <leader>ipd aimport ipdb; ipdb.set_trace()<esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" minibuf explorer
+" some useful autocommands
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup useful
+    au!
+    autocmd BufNewFile,BufRead *.html setlocal nowrap
+augroup END
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
