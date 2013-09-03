@@ -2,12 +2,13 @@
     name = Daniel Truemper
     email = truemped@googlemail.com
 [alias]
-    st = status
+    ap = add --patch
+    b = branch -vv
     ci = commit
     co = checkout
-    b = branch
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
     dc = diff --cached
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an, %cr)%Creset' --abbrev-commit --date=relative
+    st = status
 [core]
     editor = mvim -f
     excludesfile = ~/.gitignore
@@ -15,3 +16,5 @@
     status = auto
     branch = auto
     diff = auto
+[push]
+	default = tracking
