@@ -197,4 +197,5 @@ augroup useful
     autocmd BufNewFile,BufRead *.html setlocal nowrap
 augroup END
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+set wildignore+=*/tmp/*,*.so,*.swp,*.pyc
+let NERDTreeIgnore = ['\.pyc$', '\.so$', '\.swp$']
