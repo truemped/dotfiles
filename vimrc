@@ -30,7 +30,7 @@ Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
 " Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'https://github.com/kien/ctrlp.vim.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
-Bundle 'https://github.com/mattn/zencoding-vim/'
+Bundle 'https://github.com/mattn/emmet-vim/'
 " ...
 
 filetype plugin indent on     " required!
@@ -188,6 +188,7 @@ nnoremap ty :tabnext<CR>
 nnoremap <C-L> :nohl<CR><C-L>
 nnoremap <leader>pd aimport pdb; pdb.set_trace()<esc>
 nnoremap <leader>ipd aimport ipdb; ipdb.set_trace()<esc>
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " some useful autocommands
