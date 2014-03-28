@@ -16,8 +16,9 @@ Bundle 'majutsushi/tagbar'
 Bundle 'kchmck/vim-coffee-script'
 "Bundle 'ciaranm/inkpot'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'kevinw/pyflakes-vim'
+"Bundle 'kevinw/pyflakes-vim'
 Bundle 'klen/python-mode'
+Bundle 'hsitz/VimOrganizer'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " vim-scripts repos
@@ -31,6 +32,7 @@ Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
 Bundle 'https://github.com/kien/ctrlp.vim.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
 Bundle 'https://github.com/mattn/emmet-vim/'
+Bundle 'freitass/todo.txt-vim.git'
 " ...
 
 filetype plugin indent on     " required!
@@ -53,6 +55,8 @@ set isk+=_,$,@,%,#,-
 syntax on
 " show wrapped lines:
 set sbr=> 
+" Allow backspace in insert mode
+set backspace=indent,eol,start
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Cues
@@ -104,8 +108,7 @@ augroup python
     au!
     au BufNewFile /**/retresco/**/*.py 0r ~/.vim/skeleton/rtrpython.py|norm G
     au BufNewFile /**/*.py 0r ~/.vim/skeleton/python.py|norm G
-    au FileType python set syntax=python
-    au FileType python set textwidth=79
+    au FileType python set textwidth=80
     au FileType python set omnifunc=pythoncomplete#Complete
     au FileType python set number
     au FileType python nnoremap <buffer> <localleader>c I#<esc>
@@ -115,24 +118,12 @@ augroup python
     endif
 augroup END
 
-augroup python-mode
-    " python-mode stuff
-    let g:pymode_lint_write = 0
-    " Load show documentation plugin
-    let g:pymode_doc = 1
-    " Key for show python documentation
-    let g:pymode_doc_key = 'K'
-    " Switch pylint, pyflakes, pep8, mccabe code-checkers
-    " Can have multiply values "pep8,pyflakes,mcccabe"
-    let g:pymode_lint_checker = "pylint,pyflakes"
-    " ,pep8,mccabe"
-augroup END
-
 augroup html
     au!
     au FileType HTML set textwidth=0
     au FileType HTML set number
     au FileType HTML set colorcolumn=0
+    autocmd BufNewFile,BufRead *.html setlocal nowrap
 augroup END
 
 augroup htmldjango
@@ -140,6 +131,7 @@ augroup htmldjango
     au FileType HTMLDJANGO set textwidth=0
     au FileType HTMLDJANGO set number
     au FileType HTMLDJANGO set colorcolumn=0
+    autocmd BufNewFile,BufRead *.html setlocal nowrap
 augroup END
 
 augroup otherfiletypes
@@ -186,17 +178,15 @@ augroup END
 nnoremap tr :tabprevious<CR>
 nnoremap ty :tabnext<CR>
 nnoremap <C-L> :nohl<CR><C-L>
-nnoremap <leader>pd aimport pdb; pdb.set_trace()<esc>
-nnoremap <leader>ipd aimport ipdb; ipdb.set_trace()<esc>
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" some useful autocommands
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup useful
-    au!
-    autocmd BufNewFile,BufRead *.html setlocal nowrap
-augroup END
-
+" don't show these filetypes in NERDTree
 set wildignore+=*/tmp/*,*.so,*.swp,*.pyc
 let NERDTreeIgnore = ['\.pyc$', '\.so$', '\.swp$']
+
+" python-mode stuff
+" Switch pylint, pyflakes, pep8, mccabe code-checkers
+" Can have multiply values "pep8,pyflakes,mcccabe"
+let g:pymode_lint_checker = "pylama"
+let g:pymode_rope_complete_on_dot = 0
+let g:pymofe_rope = 0
