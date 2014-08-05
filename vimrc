@@ -1,6 +1,7 @@
 " be iMproved
 set nocompatible
 
+set shell=/bin/bash
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -11,28 +12,33 @@ Bundle 'gmarik/vundle'
 " My Bundles here:
 "
 " original repos on github
+" Git
 Bundle 'tpope/vim-fugitive'
-Bundle 'majutsushi/tagbar'
-Bundle 'kchmck/vim-coffee-script'
-"Bundle 'ciaranm/inkpot'
-Bundle 'altercation/vim-colors-solarized'
-"Bundle 'kevinw/pyflakes-vim'
-Bundle 'klen/python-mode'
-Bundle 'hsitz/VimOrganizer'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-"Bundle 'rails.vim'
-" non github repos
+
+" Editing
 Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
-" Bundle 'https://github.com/tony-landis/snipmate.vim.git'
-" Bundle 'git://git.wincent.com/command-t.git'
 Bundle 'https://github.com/kien/ctrlp.vim.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
+Bundle 'altercation/vim-colors-solarized'
+
+" CoffeeScript
+Bundle 'kchmck/vim-coffee-script'
+
+" Python
+Bundle 'klen/python-mode'
+Bundle 'majutsushi/tagbar'
+
+" Html
 Bundle 'https://github.com/mattn/emmet-vim/'
+
+" mgmt
 Bundle 'freitass/todo.txt-vim.git'
+Bundle 'sotte/presenting.vim.git'
+
+" Clojure stuff
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace'
+Bundle 'amdt/vim-niji'
 " ...
 
 filetype plugin indent on     " required!
@@ -89,7 +95,9 @@ set statusline=%F%m%r%h%w\ [F=%{&ff},T=%Y]\ [ASCII=\%03.3b]\ [POS=%03l,%03v,%p%%
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " color scheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme slate
+set background=light
+"set background=dark
+colorscheme solarized
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " indent
@@ -110,17 +118,26 @@ augroup python
     au BufNewFile /**/*.py 0r ~/.vim/skeleton/python.py|norm G
     au FileType python set textwidth=80
     au FileType python set omnifunc=pythoncomplete#Complete
+    au FileType python set relativenumber
     au FileType python set number
     au FileType python nnoremap <buffer> <localleader>c I#<esc>
 
     if v:version >= 703
         au FileType python set colorcolumn=80
     endif
+
+    " python-mode stuff
+    " Switch pylint, pyflakes, pep8, mccabe code-checkers
+    " Can have multiply values "pep8,pyflakes,mcccabe"
+    let g:pymode_lint_checker = "pylama"
+    let g:pymode_rope_complete_on_dot = 0
+    let g:pymofe_rope = 0
 augroup END
 
 augroup html
     au!
     au FileType HTML set textwidth=0
+    au FileType HTML set relativenumber
     au FileType HTML set number
     au FileType HTML set colorcolumn=0
     autocmd BufNewFile,BufRead *.html setlocal nowrap
@@ -129,9 +146,17 @@ augroup END
 augroup htmldjango
     au!
     au FileType HTMLDJANGO set textwidth=0
+    au FileType HTMLDJANGO set relativenumber
     au FileType HTMLDJANGO set number
     au FileType HTMLDJANGO set colorcolumn=0
     autocmd BufNewFile,BufRead *.html setlocal nowrap
+augroup END
+
+augroup clojure
+    au!
+    let g:clojure_align_multiline_strings = 1
+    au FileType CLOJURE set relativenumber
+    au FileType CLOJURE set number
 augroup END
 
 augroup otherfiletypes
@@ -142,6 +167,11 @@ augroup otherfiletypes
     autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
     autocmd FileType c set omnifunc=ccomplete#CompleteCpp
+augroup END
+
+augroup todotext
+    au!
+    autocmd BufNewFile,BufRead todo*.txt set filetype=todo
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -179,14 +209,12 @@ nnoremap tr :tabprevious<CR>
 nnoremap ty :tabnext<CR>
 nnoremap <C-L> :nohl<CR><C-L>
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>C :set background=light<CR>
+nnoremap <leader>c :set background=dark<CR>
 
 " don't show these filetypes in NERDTree
 set wildignore+=*/tmp/*,*.so,*.swp,*.pyc
 let NERDTreeIgnore = ['\.pyc$', '\.so$', '\.swp$']
 
-" python-mode stuff
-" Switch pylint, pyflakes, pep8, mccabe code-checkers
-" Can have multiply values "pep8,pyflakes,mcccabe"
-let g:pymode_lint_checker = "pylama"
-let g:pymode_rope_complete_on_dot = 0
-let g:pymofe_rope = 0
+" ctrl-p
+let g:ctrlp_clear_cache_on_exit = 0
