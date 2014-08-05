@@ -10,7 +10,7 @@
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an, %cr)%Creset' --abbrev-commit --date=relative
     st = status
 [core]
-    editor = mvim -f
+    editor = /usr/local/bin/vim
     excludesfile = ~/.gitignore
 [color]
     status = auto
