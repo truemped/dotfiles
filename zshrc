@@ -22,6 +22,8 @@ COMPLETION_WAITING_DOTS="true"
 
 CD_ABLE_VARS="true"
 
+TERM=xterm-256color
+
 plugins=(git osx compleat brew tmux)
 
 source $ZSH/oh-my-zsh.sh
