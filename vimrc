@@ -16,7 +16,6 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 
 " Editing
-Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
 Bundle 'https://github.com/kien/ctrlp.vim.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
 Bundle 'altercation/vim-colors-solarized'
@@ -95,8 +94,14 @@ set statusline=%F%m%r%h%w\ [F=%{&ff},T=%Y]\ [ASCII=\%03.3b]\ [POS=%03l,%03v,%p%%
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " color scheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=light
-"set background=dark
+let itermsession=$ITERM_PROFILE
+if itermsession == "Dark"
+    set background=dark
+elseif itermsession == "Light"
+    set background=light
+else
+    set background=dark
+endif
 colorscheme solarized
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
