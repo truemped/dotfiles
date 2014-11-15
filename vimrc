@@ -217,6 +217,10 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>C :set background=light<CR>
 nnoremap <leader>c :set background=dark<CR>
 
+" do not jump on wrapped lines
+nnoremap j gj
+nnoremap k gk
+
 " don't show these filetypes in NERDTree
 set wildignore+=*/tmp/*,*.so,*.swp,*.pyc
 let NERDTreeIgnore = ['\.pyc$', '\.so$', '\.swp$']
