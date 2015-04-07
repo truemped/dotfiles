@@ -42,6 +42,7 @@ Bundle 'https://github.com/mattn/emmet-vim/'
 " mgmt
 Bundle 'freitass/todo.txt-vim.git'
 Bundle 'sotte/presenting.vim.git'
+Bundle 'jceb/vim-orgmode'
 
 " Clojure stuff
 Bundle 'guns/vim-clojure-static'
