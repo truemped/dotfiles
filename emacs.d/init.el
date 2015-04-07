@@ -3,8 +3,6 @@
 (setq package-list '(cider
                      clojure-mode
                      markdown-mode
-;                     evil
-;                     evil-leader
                      exec-path-from-shell
                      smartparens
                      flx-ido
@@ -73,7 +71,7 @@
 
 (load-theme 'solarized-light t)
 ;(load-theme 'solarized-dark t)
-;(set-default-font "Monaco-13")
+(set-default-font "Source-Code-Pro")
 
 (require 'exec-path-from-shell)
 (setq exec-path-from-shell-arguments
@@ -103,43 +101,6 @@
     (when file
       (find-file file))))
 
-;; Making Emacs better
-;
-;(require 'evil-leader)
-;(global-evil-leader-mode)
-;(evil-leader/set-leader ",")
-;(evil-leader/set-key
-;  "r" 'recentf-ido-find-file
-;  "," 'projectile-find-file
-;  "c" 'comment-or-uncomment-region
-;  "w" 'save-buffer
-;  "b" 'switch-to-buffer
-;  "k" 'kill-buffer)
-;
-;
-;(setq evil-want-C-u-scroll t
-;      evil-want-C-w-in-emacs-state t)
-;
-;(require 'evil)
-;(evil-mode t)
-;
-;(define-key evil-insert-state-map "k" #'cofi/maybe-exit)
-;
-;(evil-define-command cofi/maybe-exit ()
-;  :repeat change
-;  (interactive)
-;  (let ((modified (buffer-modified-p)))
-;    (insert "k")
-;    (let ((evt (read-event (format "Insert %c to exit insert state" ?k)
-;                           nil 0.5)))
-;      (cond
-;        ((null evt) (message ""))
-;        ((and (integerp evt) (char-equal evt ?j))
-;         (delete-char -1)
-;         (set-buffer-modified-p modified)
-;         (push 'escape unread-command-events))
-;        (t (setq unread-command-events (append unread-command-events
-;                                               (list evt))))))))
 ;
 (require 'rainbow-delimiters nil)
 (rainbow-delimiters-mode 1)
