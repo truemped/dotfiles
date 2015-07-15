@@ -24,4 +24,4 @@
     branch = auto
     diff = auto
 [push]
-	default = tracking
+    default = tracking
