@@ -32,6 +32,9 @@ Bundle 'nathanaelkane/vim-indent-guides'
 " CoffeeScript
 Bundle 'kchmck/vim-coffee-script'
 
+" Gundo
+Bundle 'sjl/gundo.vim'
+
 " Python
 Bundle 'klen/python-mode'
 Bundle 'majutsushi/tagbar'
@@ -251,3 +254,5 @@ let NERDTreeIgnore = ['\.pyc$', '\.so$', '\.swp$']
 
 " ctrl-p
 let g:ctrlp_clear_cache_on_exit = 0
+
+nnoremap <leader>u :GundoToggle<CR>
