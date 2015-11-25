@@ -1,10 +1,6 @@
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set to the name theme to load.
-# Look in ~/.oh-my-zsh/themes/
-export ZSH_THEME="frisk"
-
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -26,11 +22,19 @@ TERM=xterm-256color
 
 plugins=(git osx compleat brew tmux)
 
-source $ZSH/oh-my-zsh.sh
+export ITERM_PROFILE=Light
+export ZSH_THEME="daniel-light"
 
-source /usr/local/bin/virtualenvwrapper_lazy.sh
+function iterm-light {
+    export ITERM_PROFILE=Light
+    export ZSH_THEME="daniel-light"
+    source $ZSH/oh-my-zsh.sh
+}
 
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH
+function iterm-dark {
+    export ITERM_PROFILE=Dark
+    export ZSH_THEME="daniel-dark"
+    source $ZSH/oh-my-zsh.sh
+}
 
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
+. $ZSH/oh-my-zsh.sh
