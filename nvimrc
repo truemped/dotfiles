@@ -1,58 +1,61 @@
 " be iMproved
 set nocompatible
+" required
+filetype off
 
 set shell=/bin/bash
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.config/nvim/bundle/Vundle.vim/
+call vundle#begin('~/.config/nvim/bundle')
 
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
-" My Bundles here:
+" My Plugins here:
 "
 " original repos on github
 " Git
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 " Status bar
-Bundle 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 
 " Editing
-Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'https://github.com/scrooloose/nerdtree.git'
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'altercation/vim-colors-solarized'
 
 " Paredit
-Bundle 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate'
 
 " visual clues for indentations
-Bundle 'nathanaelkane/vim-indent-guides'
+Plugin 'nathanaelkane/vim-indent-guides'
 
 " CoffeeScript
-Bundle 'kchmck/vim-coffee-script'
+Plugin 'kchmck/vim-coffee-script'
 
 " Gundo
-Bundle 'sjl/gundo.vim'
+Plugin 'sjl/gundo.vim'
 
 " Python
-Bundle 'klen/python-mode'
-Bundle 'majutsushi/tagbar'
+Plugin 'klen/python-mode'
+Plugin 'majutsushi/tagbar'
 
 " Html
-Bundle 'https://github.com/mattn/emmet-vim/'
+Plugin 'https://github.com/mattn/emmet-vim/'
 
 " mgmt
-Bundle 'freitass/todo.txt-vim.git'
-Bundle 'sotte/presenting.vim.git'
-Bundle 'jceb/vim-orgmode'
+Plugin 'freitass/todo.txt-vim.git'
+Plugin 'sotte/presenting.vim.git'
+Plugin 'jceb/vim-orgmode'
 
 " Clojure stuff
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-fireplace'
-Bundle 'amdt/vim-niji'
+Plugin 'guns/vim-clojure-static'
+Plugin 'tpope/vim-fireplace'
+Plugin 'luochen1990/rainbow'
 
-filetype plugin indent on     " required!
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
@@ -75,6 +78,8 @@ syntax on
 set sbr=> 
 " Allow backspace in insert mode
 set backspace=indent,eol,start
+" wrap lines
+set wrap
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Cues
@@ -125,7 +130,7 @@ endif
 colorscheme solarized
 
 " rainbow parentheses
-let g:niji_matching_filetypes = ['lisp', 'clojure']
+let g:rainbow_active = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " indent
