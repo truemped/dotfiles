@@ -1,6 +1,6 @@
 [user]
     name = Daniel Truemper
-    email = truemped@googlemail.com
+    email = truemped@gmail.com
 [alias]
     ap = add --patch
     b = branch -vv
