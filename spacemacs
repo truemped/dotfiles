@@ -30,7 +30,6 @@ values."
      version-control
      markdown
      org
-     c++
      (python :variables
              python-enable-yapf-format-on-save t)
      clojure
@@ -38,7 +37,6 @@ values."
      html
      (colors :variables
              colors-enable-rainbow-identifiers t)
-     personal
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -251,6 +249,9 @@ layers configuration."
   (define-globalized-minor-mode global-fci-mode
     fci-mode (lambda () (fci-mode 1)))
   (global-fci-mode 1)
+
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
