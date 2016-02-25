@@ -10,7 +10,8 @@ tmux.conf
 vim
 vimrc
 zshenv
-zshrc"
+zshrc
+zprofile"
 
 for f in ${(f)FILES}; do
     echo ln -s $f ~/.$f

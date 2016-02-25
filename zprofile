@@ -1,6 +1,12 @@
-PATH="/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
-
-if [[ -d /usr/local/share/npm/bin ]]; then
-    PATH="/usr/local/share/npm/bin:$PATH"
+if [[ -f /usr/libexec/java_home ]]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 fi
-export PATH
+
+if [[ -d ~/.nvm && -x /usr/local/bin/brew ]]; then
+    export NVM_DIR=~/.nvm
+    source $(/usr/local/bin/brew --prefix nvm)/nvm.sh
+fi
+
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]; then
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
