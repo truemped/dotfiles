@@ -121,12 +121,9 @@ let g:airline#extensions#tagbar#enabled = 0
 " color scheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let itermsession=$ITERM_PROFILE
-if itermsession == "Dark"
-    set background=dark
-elseif itermsession == "Light"
+set background=dark
+if itermsession == "Light"
     set background=light
-else
-    set background=dark
 endif
 colorscheme solarized
 

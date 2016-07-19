@@ -24,19 +24,30 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     ;; languages
      emacs-lisp
-     ;; better-defaults
-     git
-     version-control
-     markdown
-     org
      (python :variables
              python-enable-yapf-format-on-save t)
      clojure
+
+     ;; better-defaults
+     git
+     version-control
      syntax-checking
+     spell-checking
+
      html
+     markdown
+     org
+     deft
+
+     ansible
+     vagrant
+
      (colors :variables
              colors-enable-rainbow-identifiers t)
+
+     elastic
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -88,7 +99,7 @@ values."
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '(recents bookmarks projects)
    ;; Number of recent files to show in the startup buffer. Ignored if
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
@@ -235,9 +246,11 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put almost
-any user code here.  The exception is org related code, which should be placed
-in `dotspacemacs/user-config'."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
   )
 
 (defun dotspacemacs/user-config ()
@@ -249,36 +262,154 @@ layers configuration."
   (setq magit-auto-revert-mode nil)
   (setq magit-last-seen-setup-instructions "1.4.0")
 
-  ;; org-mode
-  (setq org-directory "~/Documents/orgmode/")
-  (setq org-agenda-files (list "~/Documents/orgmode/main.org"
-                               "~/Documents/orgmode/work.org"
-                               "~/Documents/orgmode/groceries.org"
-                               "~/Documents/orgmode/journal.org"))
-  (setq org-mobile-directory "~/Dropbox-Privat/Dropbox/mobileorg/")
-  (setq org-mobile-inbox-for-pull "~/Documents/orgmode/inbox.org")
-  (setq org-capture-templates
-        '(("i" "Inbox" entry (file+headline "~/Documents/orgmode/main.org"
-                                            "Inbox")
-           "** TODO %?\n %i\n %a")
+  (setq deft-directory "~/Documents/orgmode/notes/")
 
-          ("t" "Todo" entry (file+headline "~/Documents/orgmode/private.org"
-                                           "Tasks")
-           "* TODO %?\n %i\n %a")
+  (with-eval-after-load 'org
 
-          ("g" "Groceries" entry (file+headline
-                                  "~/Documents/orgmode/groceries.org" "INBOX")
-           "* %?\n %i\n %a")
+    ;; org-mode
+    (add-to-list 'org-modules 'org-habit)
+    ;(add-to-list 'org-modules 'org-checklist)
+    ;(add-to-list 'org-modules 'org-crypt)
+    ;(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 
-          ("j" "Journal Entry" entry (file+datetree
-                                      "~/Documents/orgmode/journal.org")
-           "* %?\nEntered on %U\n %i\n %a")))
-  (require 'org-habit)
+    ;; come global configuration
+    (setq org-hide-leading-stars 'hidestars)
+    ;(setq org-return-follows-link t)
+
+    (setq org-directory "~/Documents/orgmode/")
+    (setq org-agenda-files (list "~/Documents/orgmode/gtd.org"
+                                 "~/Documents/orgmode/notes/"))
+
+    ;(setq org-mobile-directory "~/shared/Dropbox-Privat/Dropbox/mobileorg/")
+    ;(setq org-mobile-inbox-for-pull "~/Documents/orgmode/inbox.org")
+
+    (setq org-capture-templates
+          '(("t" "Todo" entry
+             (file+headline "~/Documents/orgmode/gtd.org" "Inbox")
+             "* TODO %?\n %i\n %a")
+
+            ("z" "Time tracking" (file+headline "~/Documents/orgmode/gtd.org" "Inbox") "* ZKTO %? \n  %i" :clock-in t :clock-resume t)
+
+            ("j" "Journal Entry" entry
+             (file+datetree
+              "~/Documents/orgmode/journal.org")
+             "* %?\nEntered on %U\n %i\n %a")))
+
+    ;; Use IDO for target completion
+    (setq org-completion-use-ido t)
+    ;; Targets include this file and any file contributing to the agenda - up to 5 levels deep
+    (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5))))
+    ;; Targets start with the file name - allows creating level 1 tasks
+    (setq org-refile-use-outline-path (quote file))
+    ;; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
+    (setq org-outline-path-complete-in-steps t)
+
+    (setq org-drawers (quote ("PROPERTIES" "CLOCKTABLE" "LOGBOOK" "CLOCK")))
+
+    ;; Ein "!" bedeutet Zeitstempel
+    ;; Ein "@" bedeutet Notiz
+    (setq org-todo-keywords
+          '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "APPT(a)" "PROJ(p)"
+                      "DELEGATED(g@/!)" "|" "DONE(d!)" "ZKTO(z)" "CANCELED(c@)")))
+
+    ;; Farben anpassen
+    (setq org-todo-keyword-faces
+          '(("TODO"  . (:foreground "#b70101" :weight bold))
+            ("STARTED"  . (:foreground "#b70101" :weight bold))
+            ("APPT"  . (:foreground "sienna" :weight bold))
+            ("PROJ"  . (:foreground "blue" :weight bold))
+            ("ZKTO"  . (:foreground "orange" :weight bold))
+            ("WAITING"  . (:foreground "orange" :weight bold))
+            ("DONE"  . (:foreground "forestgreen" :weight bold))
+            ("DELEGATED"  . (:foreground "forestgreen" :weight bold))
+            ("CANCELED"  . shadow)))
+
+    ;; Fast TODO Selection
+    (setq org-use-fast-todo-selection t)
+
+    ;; Einen Zeitstempel eintragen, wenn eine Aufgabe als erledigt markiert wird
+    (setq org-log-done 'time)
+
+    ;; Einen eigenen Drawer benutzen
+    (setq org-log-into-drawer t)
+
+    ;; Save clock data and notes in a separate drawer
+    (setq org-clock-into-drawer "CLOCK")
+
+    ;; Aktuelle Zeile in der Agenda hervorheben
+    (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1 )))
+
+    (setq org-agenda-format-date
+          "%Y-%m-%d ---------------------------------------------------------------------")
+
+    ;; Tasks mit Prioriäten unterschiedlich darstellen:
+    (setq org-agenda-fontify-priorities
+          (quote ((65 (:foreground "Red")) (66 (:foreground "Blue")) (67 (:foreground "Darkgreen")))))
+
+    (setq org-agenda-date-weekend (quote (:foreground "Yellow" :weight bold)))
+
+    ;; Tasks mit Datum in der Agenda ausblenden, wenn sie bereits erledigt sind:
+    (setq org-agenda-skip-deadline-if-done t)
+    (setq org-agenda-skip-scheduled-if-done t)
+    (setq org-agenda-filter-preset '("-someday"))
+    (setq org-agenda-span 1)
+    ;; Eigene Agenda-Views
+    (setq org-agenda-custom-commands
+          (quote (
+                  ("s" "SOMEDAY" tags "someday" ((org-agenda-filter-preset
+                                                  '("+someday"))(org-agenda-todo-ignore-with-date nil)))
+                  ("z" todo "ZKTO")
+                  ("f" "Agenda and flagged tasks"
+                   ((tags "zkto")
+                    (tags "flagged")
+                    (agenda ""))))))
+    ;; Resume clocking tasks when emacs is restarted
+    (org-clock-persistence-insinuate)
+
+    ;; Yes it's long... but more is better ;)
+    (setq org-clock-history-length 35)
+
+    ;; Resume clocking task on clock-in if the clock is open
+    (setq org-clock-in-resume t)
+
+    ;; Change task state to STARTED when clocking in
+    (setq org-clock-in-switch-to-state "STARTED")
+
+    ;; Sometimes I change tasks I'm clocking quickly
+    ;; this removes clocked tasks with 0:00 duration
+    (setq org-clock-out-remove-zero-time-clocks t)
+
+    ;; Don't clock out when moving task to a done state
+    (setq org-clock-out-when-done nil)
+
+    ;; Save the running clock and all clock history when exiting Emacs,
+    ;; load it on startup
+    (setq org-clock-persist t)
+
+    ;; Disable auto clock resolution
+    (setq org-clock-auto-clock-resolution nil)
+
+    (setq org-global-properties
+          (quote (("Effort_ALL" .
+                   "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00"))))
+    ;; Agenda direkt mit dem jeweiligen Clock-Report starten:
+    (setq org-agenda-start-with-clockreport-mode t)
+
+    ;; Keine Links, maximal bis Level 4 herunter:
+    (setq org-agenda-clockreport-parameter-plist (quote (:link t :maxlevel 4)))
+
+    (setq org-columns-default-format
+          "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+    )
+
 
   (smartparens-global-mode 1)
   (define-globalized-minor-mode global-fci-mode
     fci-mode (lambda () (fci-mode 1)))
   (global-fci-mode 1)
+
+  (setq es-cc-endpoint "http://127.0.0.1:9200/")
+  (setq es-default-url "http://127.0.0.1:9200/")
 
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
@@ -297,6 +428,9 @@ layers configuration."
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(magit-use-overlays nil)
+ '(org-modules
+   (quote
+    (org-habit org-info)))
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
